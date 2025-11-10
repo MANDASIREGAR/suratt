@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Surat Lucu Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Comic Neue', cursive;
+      background: linear-gradient(to bottom right, #ffe4f0, #fff0f5);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+      min-height: 100vh;
+    }
+
+    h1 {
+      color: #ff69b4;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      margin-bottom: 1rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+      padding: 1rem;
+      max-width: 500px;
+      width: 100%;
+      animation: fadeIn 0.6s ease;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 0.6rem;
+      margin-bottom: 0.5rem;
+      border: 2px solid #ffb6c1;
+      border-radius: 12px;
+      font-family: 'Comic Neue', cursive;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 0.6rem 1rem;
+      background: #ff69b4;
+      border: none;
+      border-radius: 12px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 1rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: transform 0.2s ease;
+      margin-top: 0.5rem;
+      width: 100%;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: #ff85c1;
+    }
+
+    .output {
+      margin-top: 1rem;
+      background: #fff0f5;
+      padding: 1rem;
+      border-radius: 16px;
+      white-space: pre-wrap;
+      font-size: 1rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <h1>💌 Surat Lucu AMANDAAA</h1>
+  <div class="card">
+    <input type="text" id="nama" placeholder="Nama pengirim" />
+    <input type="text" id="tujuan" placeholder="Tujuan surat (misalnya: Mama, sahabat, pacar)" />
+    <textarea id="tambahan" rows="3" placeholder="Tambahan isi (opsional)..."></textarea>
+    <button onclick="buatSurat()">Buat Surat Lucu</button>
+    <div class="output" id="hasilSurat"></div>
+    <div class="actions">
+      <button onclick="salinSurat()">📋 Salin</button>
+      <button onclick="window.print()">🖨️ Cetak</button>
+    </div>
+  </div>
+
+  <script>
+    const gayaLucu = [
+      "Halo {tujuan},\n\nAku cuma mau bilang... kamu itu seperti WiFi gratis di tempat umum: semua orang senang, tapi kadang bikin lemot juga.\n\nSalam dari {nama}, yang selalu gagal diet karena mie instan.",
+      "Hai {tujuan},\n\nKalau kamu jadi makanan, kamu pasti jadi kerupuk: renyah, tapi gampang patah hati.\n\nDari {nama}, yang pernah jatuh cinta sama tukang parkir.",
+      "Dear {tujuan},\n\nAku harap kamu bahagia, meski tanpa aku. Tapi kalau kamu bahagia sama orang lain, aku akan pura-pura jadi ninja dan menghilang.\n\nSalam dari {nama}, yang pernah curhat ke dispenser.",
+      "Hai {tujuan},\n\nKamu itu seperti sandal jepit: selalu ada saat dibutuhkan, tapi sering hilang sebelah.\n\nDari {nama}, yang pernah ditinggal pas lagi sayang-sayangnya."
+    ];
+
+    function buatSurat() {
+      const nama = document.getElementById("nama").value || "Anonim";
+      const tujuan = document.getElementById("tujuan").value || "Kamu";
+      const tambahan = document.getElementById("tambahan").value;
+
+      const template = gayaLucu[Math.floor(Math.random() * gayaLucu.length)];
+      let surat = template.replace("{nama}", nama).replace("{tujuan}", tujuan);
+
+      if (tambahan.trim()) {
+        surat += `\n\nCatatan tambahan: ${tambahan}`;
+      }
+
+      document.getElementById("hasilSurat").textContent = surat;
+    }
+
+    function salinSurat() {
+      const teks = document.getElementById("hasilSurat").textContent;
+      navigator.clipboard.writeText(teks).then(() => {
+        alert("Surat berhasil disalin!");
+      });
+    }
+  </script>
+</body>
+</html>
